@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -84,7 +85,7 @@ public class EmpRestController {
 			Object data = "";
 			
 			try {
-				if(empService.updateEmp(emp)==true) {
+				if(empService.addEmp(emp)==true) {
 								message.setStatus("OK");
 								message.setMessage("update employee successfully");
 								message.setData(emp);
@@ -140,4 +141,66 @@ public class EmpRestController {
 					return message;
 					
 				}
+				//get emp by team id
+				@GetMapping("/employees/team/{teamId}")
+				public @ResponseBody Payload getEmpByTeamId(@PathVariable String teamId) {
+					Payload message = new Payload();
+					Object data = "";
+					try {
+						data = empService.getEmpByTeamId(teamId);
+						message.setStatus("OK");
+						message.setMessage("Get emp by team id successfully!!!");
+						message.setData(data);
+						message.setError(false);
+						LOGGER.info("Get emp by team id successfully!!!");
+					} catch (Exception e) {
+						message.setStatus("FAILED");
+						message.setMessage("Get emp by team id unsuccessfully, error: "+ e.getMessage());
+						message.setData(data);
+						message.setError(true);
+						LOGGER.error("Get emp by team id unsuccessfully!!!");
+					}
+
+					return message;
+				}		
+				
+				//get emp by gender
+				@GetMapping("/employees/gender/{gender}")
+				public @ResponseBody Payload getEmpByGender(@PathVariable String gender) {
+					Payload message = new Payload();
+					Object data = "";
+					Boolean gen=null;
+					try {
+						
+						if(gender.equals("male")) {
+							gen=true;
+						}
+						if(gender.equals("female")) {
+							gen=false;
+						}
+							if(gen!=null) {
+								data = empService.getEmpByGender(gen);
+								message.setStatus("OK");
+								message.setMessage("Get emp by gender successfully!!!");
+								message.setData(data);
+								message.setError(false);
+								LOGGER.info("Get emp by gender successfully!!!");
+							}
+							else {
+								message.setStatus("OK");
+								message.setMessage("Gender must be male or female!!");
+								message.setData(data);
+								message.setError(false);
+								LOGGER.info("Gender must be male or female!!");
+							}
+					} catch (Exception e) {
+						message.setStatus("FAILED");
+						message.setMessage("Get emp by gender unsuccessfully, error: "+ e.getMessage());
+						message.setData(data);
+						message.setError(true);
+						LOGGER.error("Get emp by gender unsuccessfully!!!");
+					}
+
+					return message;
+				}		
 }
