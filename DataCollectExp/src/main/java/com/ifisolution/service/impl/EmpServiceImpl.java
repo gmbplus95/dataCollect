@@ -25,13 +25,6 @@ public class EmpServiceImpl implements EmpService{
 		else return false;
 	}
 
-//	@Override
-//	public Boolean updateEmp(Emp emp) {
-//		if(empDAO.updateEmp(emp)==true)
-//			return true;
-//			else return false;		
-//		
-//	}
 
 	@Override
 	public Boolean deleteEmp(String emp_name, Date date_of_birth) {
@@ -48,6 +41,25 @@ public class EmpServiceImpl implements EmpService{
 	@Override
 	public List<Emp> getEmpByGender(Boolean gender) {
 		return empDAO.getEmpByGender(gender);
+	}
+
+	@Override
+	public List<Emp> getAllEmp2() {
+		return empDAO.getAllEmp2();
+	}
+
+	@Override
+	public Boolean addEmp2(Emp emp) {
+		if (empDAO.addEmp2(emp)==true)
+			return 	true;
+			else return false;
+	}
+
+	@Override
+	public Boolean deleteEmp2(String emp_name, Date date_of_birth) {
+		if(empDAO.deleteEmp2(emp_name,date_of_birth)==true)
+			return true;
+			else return false;		
 	}
 
 }

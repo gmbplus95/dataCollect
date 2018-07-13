@@ -11,4 +11,9 @@ public interface EmpService {
 	Boolean deleteEmp(String emp_name,Date date_of_birth); // delete a emp
 	List<Emp> getEmpByTeamId(String teamId);//get emp by teamId
 	List<Emp> getEmpByGender(Boolean gender);//get emp by gender
+	List<Emp> getAllEmp2(); //get all emp 2
+	Boolean addEmp2(Emp emp); //add a emp 2
+	Boolean deleteEmp2(String emp_name,Date date_of_birth); // delete a emp 2
+
+
 }

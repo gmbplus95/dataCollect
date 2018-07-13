@@ -4,7 +4,6 @@ import java.util.Map;
 
 import org.springframework.stereotype.Component;
 
-import com.datastax.driver.core.BoundStatement;
 import com.datastax.driver.core.PreparedStatement;
 import com.datastax.driver.core.Session;
 
@@ -18,13 +17,11 @@ public class CassandraOperation {
 	}
 
 	public static Session getSession(final String[] node, final int port) {
-		// return ConnectionFactory.getSession(keyspace, node, port);
 		return ConnectionFactory.getSession(ConnectionFactory.dataCenter, node, ConnectionFactory.usedHostsPerRemoteDc, port);
 	}
 	
     public PreparedStatement getStatement(String cql) {
         PreparedStatement ps = statementCache.get(cql);
-        // no statement cached, create one and cache it now.
         if (ps == null) {
         	Session session = getSession();
             ps = session.prepare(cql);

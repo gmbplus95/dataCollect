@@ -2,29 +2,25 @@ package com.ifisolution.model;
 
 import java.util.Date;
 
-import org.springframework.data.cassandra.core.cql.Ordering;
-import org.springframework.data.cassandra.core.cql.PrimaryKeyType;
-import org.springframework.data.cassandra.core.mapping.Column;
-import org.springframework.data.cassandra.core.mapping.PrimaryKeyColumn;
-import org.springframework.data.cassandra.core.mapping.Table;
+import com.ifisolution.util.CassandraColumn;
+import com.ifisolution.util.CassandraTable;
+import com.ifisolution.util.ClusterKey;
+import com.ifisolution.util.PartitionKey;
 
-@Table("emp")
+@CassandraTable(name ="emp")
 public class Emp {
-	    @PrimaryKeyColumn(
-	      name = "emp_name", 
-	      ordinal = 0, 
-	      type = PrimaryKeyType.PARTITIONED)
+		@PartitionKey
+		@CassandraColumn(name ="emp_name")
 	    private String emp_name;
-	    @PrimaryKeyColumn(
-	  	      name = "date_of_birth", 
-	  	      ordinal = 1, 
-	  	      type = PrimaryKeyType.CLUSTERED,
-	  	      ordering = Ordering.ASCENDING)
-	  	    Date date_of_birth;
-	    @Column
+		@ClusterKey
+		@CassandraColumn(name ="date_of_birth")
+	  	Date date_of_birth;
+		@CassandraColumn(name ="gender")
 	    private Boolean gender;
-	    @Column
+		@CassandraColumn(name ="team_id")
 	    private String team_id;
+		
+		//getter and setter
 		public String getEmp_name() {
 			return emp_name;
 		}
@@ -49,6 +45,8 @@ public class Emp {
 		public void setTeam_id(String team_id) {
 			this.team_id = team_id;
 		}
+		
+		//contructor
 		public Emp() {
 			super();
 		}
