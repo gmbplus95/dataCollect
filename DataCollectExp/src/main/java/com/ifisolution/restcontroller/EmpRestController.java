@@ -3,6 +3,7 @@ package com.ifisolution.restcontroller;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.TimeZone;
 
 import org.apache.commons.logging.Log;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ifisolution.model.Emp;
+import com.ifisolution.model.EmpSpringData;
 import com.ifisolution.service.EmpService;
 
 @RestController
@@ -74,7 +76,6 @@ public class EmpRestController {
 
 			return message;
 		}
-	
 	//add a employee
 	@PostMapping("/employees")
 	public @ResponseBody Payload addEmployee(@RequestBody Emp emp) {
@@ -86,14 +87,14 @@ public class EmpRestController {
 							message.setMessage("add employee successfully");
 							message.setData(emp);
 							message.setError(false);
-							LOGGER.info("add employee successfully successfully!!!");
+							LOGGER.info("add employee successfully!!!");
 			}
 		} catch (Exception e) {
 			message.setStatus("FAILED");
-			message.setMessage("add employee successfully unsuccessfully, error: "+ e.getMessage());
+			message.setMessage("add employee unsuccessfully, error: "+ e.getMessage());
 			message.setData(data);
 			message.setError(true);
-			LOGGER.error("add employee successfully unsuccessfully!!!");
+			LOGGER.error("add employee unsuccessfully!!!");
 		}
 
 		return message;
@@ -112,20 +113,19 @@ public class EmpRestController {
 								message.setMessage("add employee successfully");
 								message.setData(emp);
 								message.setError(false);
-								LOGGER.info("add employee successfully successfully!!!");
+								LOGGER.info("add employee successfully!!!");
 				}
 			} catch (Exception e) {
 				message.setStatus("FAILED");
-				message.setMessage("add employee successfully unsuccessfully, error: "+ e.getMessage());
+				message.setMessage("add employee unsuccessfully, error: "+ e.getMessage());
 				message.setData(data);
 				message.setError(true);
-				LOGGER.error("add employee successfully unsuccessfully!!!");
+				LOGGER.error("add employee unsuccessfully!!!");
 			}
 
 			return message;
 			
 		}
-	
 	//edit a employee
 		@PutMapping("/employees")
 		public @ResponseBody Payload editEmployee(@RequestBody Emp emp) {
@@ -133,19 +133,19 @@ public class EmpRestController {
 			Object data = null;
 			
 			try {
-				if(empService.addEmp(emp)==true) {
+				if(empService.addEmp2(emp)==true) {
 								message.setStatus("OK");
 								message.setMessage("update employee successfully");
 								message.setData(emp);
 								message.setError(false);
-								LOGGER.info("update employee successfully successfully!!!");
+								LOGGER.info("update employee successfully!!!");
 				}
 			} catch (Exception e) {
 				message.setStatus("FAILED");
-				message.setMessage("update employee successfully unsuccessfully, error: "+ e.getMessage());
+				message.setMessage("update employee unsuccessfully, error: "+ e.getMessage());
 				message.setData(data);
 				message.setError(true);
-				LOGGER.error("update employee successfully unsuccessfully!!!");
+				LOGGER.error("update employee  unsuccessfully!!!");
 			}
 
 			return message;
@@ -168,7 +168,7 @@ public class EmpRestController {
 										message.setMessage("Delete employee successfully");
 										message.setData(data);
 										message.setError(false);
-										LOGGER.info("Delete employee successfully successfully!!!");
+										LOGGER.info("Delete employee successfully !!!");
 						}
 						else {
 							message.setStatus("OK");
@@ -180,10 +180,10 @@ public class EmpRestController {
 						
 					} catch (Exception e) {
 						message.setStatus("FAILED");
-						message.setMessage("Delete employee successfully unsuccessfully, error: "+ e.getMessage());
+						message.setMessage("Delete employee unsuccessfully, error: "+ e.getMessage());
 						message.setData(data);
 						message.setError(true);
-						LOGGER.error("Delete employee successfully unsuccessfully!!!");
+						LOGGER.error("Delete employee unsuccessfully!!!");
 					}
 
 					return message;
@@ -206,7 +206,7 @@ public class EmpRestController {
 										message.setMessage("Delete employee successfully");
 										message.setData(data);
 										message.setError(false);
-										LOGGER.info("Delete employee successfully successfully!!!");
+										LOGGER.info("Delete employee successfully!!!");
 						}
 						else {
 							message.setStatus("OK");
@@ -218,10 +218,10 @@ public class EmpRestController {
 						
 					} catch (Exception e) {
 						message.setStatus("FAILED");
-						message.setMessage("Delete employee successfully unsuccessfully, error: "+ e.getMessage());
+						message.setMessage("Delete employee unsuccessfully, error: "+ e.getMessage());
 						message.setData(data);
 						message.setError(true);
-						LOGGER.error("Delete employee successfully unsuccessfully!!!");
+						LOGGER.error("Delete employee unsuccessfully!!!");
 					}
 
 					return message;
@@ -251,11 +251,12 @@ public class EmpRestController {
 				}		
 				
 				//get emp by gender
-				@GetMapping("/employees/gender/{gender}")
-				public @ResponseBody Payload getEmpByGender(@PathVariable String gender) {
+				@GetMapping("/employees/gender/{gender1}")
+				public @ResponseBody Payload getEmpByGender(@PathVariable String gender1) {
 					Payload message = new Payload();
 					Object data = null;
 					Boolean gen=null;
+					String gender=gender1.toLowerCase();
 					try {
 						
 						if(gender.equals("male")) {
@@ -276,7 +277,7 @@ public class EmpRestController {
 								message.setError(false);
 								LOGGER.info("Get emp by gender successfully!!!");
 							}
-								else if(gender.equals("LGBT")) {
+								else if(gender.equals("lgbt")) {
 									gen=null;
 									data = empService.getEmpByGender(gen);
 									message.setStatus("OK");
@@ -301,6 +302,38 @@ public class EmpRestController {
 						LOGGER.error("Get emp by gender unsuccessfully!!!");
 					}
 
+					return message;
+				}	
+				//get all by call API
+				@GetMapping("/employees4")
+				public @ResponseBody Payload getAllEmployeeByCallAPI() {
+					Payload message = new Payload();
+					Object data = null;
+					try {
+						List<Emp> result=empService.getAllEmpByCallAPI();
+						if(result !=null) {
+									message.setStatus("OK");
+									message.setMessage("Get all message successfully!!!");
+									message.setData(result);
+									message.setError(false);
+									LOGGER.info("get all message successfully!!!");
+								} 
+								
+							else {
+								message.setStatus("FAILED");
+								message.setMessage("Wrong API!");
+								message.setData(data);
+								message.setError(true);
+								LOGGER.error("get all message unsuccessfully!!!");
+							}
+						}
+						catch (Exception e) {
+							message.setStatus("FAILED");
+							message.setMessage("Get all message unsuccessfully, error: "+ e.getMessage());
+							message.setData(data);
+							message.setError(true);
+							LOGGER.error("get all message unsuccessfully!!!");
+						}	
 					return message;
 				}		
 }

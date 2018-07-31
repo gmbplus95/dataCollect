@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.ifisolution.dao.EmpDAO;
 import com.ifisolution.model.Emp;
+import com.ifisolution.model.EmpSpringData;
 import com.ifisolution.service.EmpService;
 @Service("EmpService")
 public class EmpServiceImpl implements EmpService{
@@ -39,7 +40,7 @@ public class EmpServiceImpl implements EmpService{
 	}
 
 	@Override
-	public List<Emp> getEmpByGender(Boolean gender) {
+	public List<Object> getEmpByGender(Boolean gender) {
 		return empDAO.getEmpByGender(gender);
 	}
 
@@ -61,5 +62,29 @@ public class EmpServiceImpl implements EmpService{
 			return true;
 			else return false;		
 	}
+
+	@Override
+	public List<EmpSpringData> getAllEmp3() {
+		return empDAO.getAllEmp3();
+	}
+
+	@Override
+	public Boolean addOrUpdateEmp3(EmpSpringData emp) {
+		if (empDAO.addOrUpdateEmp3(emp)==true)
+			return 	true;
+			else return false;
+	}
+
+	@Override
+	public List<Emp> getAllEmpByCallAPI() {
+		return empDAO.getAllEmpByCallAPI();
+	}
+
+	@Override
+	public Boolean deleteEmp3(String emp_name, Date date_of_birth) {
+		if(empDAO.deleteEmp3(emp_name,date_of_birth)==true)
+			return true;
+			else return false;
+		}
 
 }

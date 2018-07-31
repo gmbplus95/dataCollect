@@ -11,52 +11,60 @@ import com.ifisolution.util.PartitionKey;
 public class Emp {
 		@PartitionKey
 		@CassandraColumn(name ="emp_name")
-	    private String emp_name;
+	    private String empName;
 		@ClusterKey
 		@CassandraColumn(name ="date_of_birth")
-	  	Date date_of_birth;
+	  	Date dateOfBirth;
 		@CassandraColumn(name ="gender")
 	    private Boolean gender;
 		@CassandraColumn(name ="team_id")
-	    private String team_id;
+	    private String teamId;
 		
-		//getter and setter
-		public String getEmp_name() {
-			return emp_name;
-		}
-		public void setEmp_name(String emp_name) {
-			this.emp_name = emp_name;
-		}
-		public Date getDate_of_birth() {
-			return date_of_birth;
-		}
-		public void setDate_of_birth(Date date_of_birth) {
-			this.date_of_birth = date_of_birth;
-		}
-		public Boolean getGender() {
-			return gender;
-		}
-		public void setGender(Boolean gender) {
+		public Emp(String empName, Date dateOfBirth, Boolean gender, String teamId) {
+			super();
+			this.empName = empName;
+			this.dateOfBirth = dateOfBirth;
 			this.gender = gender;
+			this.teamId = teamId;
 		}
-		public String getTeam_id() {
-			return team_id;
-		}
-		public void setTeam_id(String team_id) {
-			this.team_id = team_id;
-		}
-		
-		//contructor
+
 		public Emp() {
 			super();
 		}
-		public Emp(String emp_name, Date date_of_birth, Boolean gender, String team_id) {
-			super();
-			this.emp_name = emp_name;
-			this.date_of_birth = date_of_birth;
-			this.gender = gender;
-			this.team_id = team_id;
+
+		public String getEmpName() {
+			return empName;
 		}
-	    
-	    
+
+		public void setEmpName(String empName) {
+			this.empName = empName;
+		}
+
+		public Date getDateOfBirth() {
+			return dateOfBirth;
+		}
+
+		public void setDateOfBirth(Date dateOfBirth) {
+			this.dateOfBirth = dateOfBirth;
+		}
+
+		public Boolean getGender() {
+			return gender;
+		}
+
+		public void setGender(Boolean gender) {
+			this.gender = gender;
+		}
+
+		public String getTeamId() {
+			return teamId;
+		}
+
+		public void setTeamId(String teamId) {
+			this.teamId = teamId;
+		}
+		
+		//getter and setter
+		
+		
 	}

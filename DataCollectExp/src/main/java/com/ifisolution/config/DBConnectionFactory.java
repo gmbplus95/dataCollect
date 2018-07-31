@@ -31,6 +31,8 @@ public class DBConnectionFactory {
 	
 	public static String keyspace_test_emp2;
 	
+	public static String table_emp;
+	
 	public static ConsistencyLevel consistencyLevelInsert;
 	public static ConsistencyLevel consistencyLevelSelect;
 	

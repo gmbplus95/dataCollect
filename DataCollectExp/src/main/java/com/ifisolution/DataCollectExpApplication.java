@@ -30,6 +30,9 @@ public class DataCollectExpApplication {
 	@Value("${cassandra.keyspace.test_emp2}")
 	private String keyspace_test_emp2;
 	
+	@Value("${cassandra.table.emp}")
+	private String table_emp;
+	
 	@Value("${cassandra.username}")
 	private String username;
 
@@ -48,15 +51,15 @@ public class DataCollectExpApplication {
 	@PostConstruct
 	public void postConstruct() {
 		//solution 1
-//		ConnectionFactory.contactPoints = this.contactPoints;
-//		ConnectionFactory.dataCenter = this.dataCenter;
-//		ConnectionFactory.usedHostsPerRemoteDc = this.usedHostsPerRemoteDc;
-//		ConnectionFactory.port = this.port;
-//		ConnectionFactory.username = this.username;
-//		ConnectionFactory.password = this.password;
-//		ConnectionFactory.fetchSize = this.fetchSize;
-//		ConnectionFactory.consistencyLevel = this.consistencyLevel;
-//		
+		ConnectionFactory.contactPoints = this.contactPoints;
+		ConnectionFactory.dataCenter = this.dataCenter;
+		ConnectionFactory.usedHostsPerRemoteDc = this.usedHostsPerRemoteDc;
+		ConnectionFactory.port = this.port;
+		ConnectionFactory.username = this.username;
+		ConnectionFactory.password = this.password;
+		ConnectionFactory.fetchSize = this.fetchSize;
+		ConnectionFactory.consistencyLevel = this.consistencyLevel;
+		
 		//solution 2
 		DBConnectionFactory.cassandra_contactpoints =this.contactPoints;
 		DBConnectionFactory.cassandra_port = this.port;
@@ -66,5 +69,6 @@ public class DataCollectExpApplication {
 		DBConnectionFactory.password = password;
 		DBConnectionFactory.dc = this.dataCenter;
 		DBConnectionFactory.usedHostsPerRemoteDc = this.usedHostsPerRemoteDc;
+		DBConnectionFactory.table_emp=this.table_emp;
 	}
 }
